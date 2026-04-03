@@ -1,16 +1,54 @@
-# Hytale Plugin Template
+# GridWave
 
-A template for Hytale java plugins. Created by [Up](https://github.com/UpcraftLP), and slightly modified by Kaupenjoe. 
+GridWave is a Hytale plugin that integrates Wave Function Collapse (WFC) into the World Generation V2 Node Editor. It enables structured, constraint-based procedural generation for dungeons, mazes, cities, towns, castles, structures, and many more.
 
-### Configuring the Template
-If you for example installed the game in a non-standard location, you will need to tell the project about that.
-The recommended way is to create a file at `%USERPROFILE%/.gradle/gradle.properties` to set these properties globally.
+## Features
 
-```properties
-# Set a custom game install location
-hytale.install_dir=path/to/Hytale
+* WFC-based generation for deterministic but varied worlds
+* Seamless integration with Worldgen V2
+* Support for custom tilesets and constraints
+* Scalable generation across large regions
+* Modular design for easy extension
 
-# Speed up the decompilation process significantly, by only including the core hytale packages.
-# Recommended if decompiling the game takes a very long time on your PC.
-hytale.decompile_partial=true
-```
+## Installation
+
+1. Download the latest release
+2. Place the plugin in your `Mods` folder
+> [!NOTE]
+> Node modding is currently not offically suported by Hytale, thus we need to add the files manually.
+3. Copy contents of src/main/resources/Client/NodeEditor/Workspaces/HytaleGenerator%20Java to your corresponding folder in %Appdata%/Hytale/install\release\package\game\latest\Client\NodeEditor\Workspaces\HytaleGenerator Java
+
+## Usage
+
+* Configure tilesets and rules in the config files
+* Attach GridWave to your worldgen pipeline
+* Adjust parameters such as entropy, collapse strategy, and adjacency rules
+
+## Configuration
+
+Example:
+![NodeTree](https://media.discordapp.net/attachments/1480193655988817960/1484508842782883921/image.png?ex=69d04858&is=69cef6d8&hm=d3fcccaa049f9ea1d3a5ffa65adbac21642e7db92e296ce8f0d3fe2268d7c48e&=&format=webp&quality=lossless&width=1149&height=518)
+
+## How It Works
+
+GridWave applies Wave Function Collapse by:
+
+1. Reads all positions delivered by a ListPosition Node
+2. Places any POI (FixedTiles) on the grid if position exists
+3. Uses BaseTiles to fill the grid using WFC
+   1. Backtracks if it encounters impossible situations
+   2. Starts a new attempt if to many backtracks where reached, _Configurable, to give possibility to increase success chance_
+4. Uses pattern matching to try and replace base tiles with FancyTiles to add variety
+5. Assembles a single UnionProp
+
+## Roadmap
+
+* Need to add later
+
+## Contributing
+
+Pull requests and issue reports are welcome.
+
+## License
+
+MIT License
