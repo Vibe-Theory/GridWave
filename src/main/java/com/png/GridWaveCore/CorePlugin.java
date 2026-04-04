@@ -1,5 +1,8 @@
 package com.png.GridWaveCore;
 
+import com.hypixel.hytale.assetstore.AssetRegistry;
+import com.hypixel.hytale.assetstore.map.DefaultAssetMap;
+import com.hypixel.hytale.builtin.hytalegenerator.assets.AssetManager;
 import com.hypixel.hytale.builtin.hytalegenerator.assets.positionproviders.PositionProviderAsset;
 import com.hypixel.hytale.builtin.hytalegenerator.assets.props.PropAsset;
 import com.hypixel.hytale.codec.schema.SchemaContext;
@@ -7,6 +10,7 @@ import com.hypixel.hytale.codec.schema.config.Schema;
 import com.hypixel.hytale.codec.validation.ValidationResults;
 import com.hypixel.hytale.codec.validation.Validator;
 import com.hypixel.hytale.logger.HytaleLogger;
+import com.hypixel.hytale.server.core.asset.HytaleAssetStore;
 import com.hypixel.hytale.server.core.plugin.JavaPlugin;
 import com.hypixel.hytale.server.core.plugin.JavaPluginInit;
 
@@ -28,6 +32,13 @@ public class CorePlugin extends JavaPlugin {
         //Test stuff
         this.getCommandRegistry().registerCommand(new PingCommand(this.getName(), this.getManifest().getVersion().toString()));
         PropAsset.CODEC.register("CPrefab", CPrefabPropAsset.class, CPrefabPropAsset.CODEC);
+
+        AssetRegistry.register(HytaleAssetStore.builder(TileSetAsset.class, new DefaultAssetMap<String, TileSetAsset>())
+                .setPath("HytaleGenerator/TileSets")
+                .setCodec(TileSetAsset.CODEC)
+                .setKeyFunction(TileSetAsset::getId)
+                .build()
+        );
 
         //Algo Nodes
         PropAsset.CODEC.register("Algo", AlgoAsset.class, AlgoAsset.CODEC);

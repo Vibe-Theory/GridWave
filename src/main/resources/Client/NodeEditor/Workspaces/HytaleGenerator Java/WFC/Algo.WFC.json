@@ -4,6 +4,15 @@
   "Color": "Green",
   "Content" : [
     {
+      "Id" : "ExportAs",
+      "Type" : "SmallString",
+      "Options" : {
+        "Label" : "ExportAs",
+        "Default" : "",
+        "Width" : 200
+      }
+    },
+    {
       "Id": "Skip",
       "Type": "Checkbox",
       "Options": {
@@ -144,6 +153,7 @@
   ],
   "Schema": {
     "Type" : "Algo",
+    "ExportAs" : "ExportAs",
     "Skip" : "Skip",
     "GridPoints" : {
       "Node" : "PositionsVariants",

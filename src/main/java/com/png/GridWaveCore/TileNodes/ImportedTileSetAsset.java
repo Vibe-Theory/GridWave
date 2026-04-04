@@ -6,27 +6,31 @@ import com.hypixel.hytale.codec.builder.BuilderCodec;
 import com.hypixel.hytale.logger.HytaleLogger;
 
 import javax.annotation.Nonnull;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ImportedTileSetAsset extends TileSetAsset {
     @Nonnull
     public static final BuilderCodec<ImportedTileSetAsset> CODEC = BuilderCodec.builder(
                     ImportedTileSetAsset.class, ImportedTileSetAsset::new, TileSetAsset.ABSTRACT_CODEC
             )
-            .append(new KeyedCodec<>("Name", Codec.STRING, true), (t, k) -> t.name = k, k -> k.name)
+            .append(new KeyedCodec<>("Name", Codec.STRING, true), (t, k) -> t.importName = k, k -> k.importName)
             .add()
             .build();
-    private String name = "";
+    private String importName = "";
 
     @Override
     public TileSet build(@Nonnull TileSetAsset.Argument argument, int grid) {
-        if (super.isSkipped()) {
-            return null;
-        } else if (this.name != null && !this.name.isEmpty()) {
-            TileSetAsset exportedAsset = TileSetAsset.getExportedAsset(this.name);
-            return exportedAsset == null ? null : exportedAsset.build(argument, grid);
-        } else {
-            HytaleLogger.getLogger().atWarning().log("An exported Seed with the name does not exist: " + this.name);
-            return null;
+        if (this.importName != null && !this.importName.isEmpty()) {
+            TileSetAsset.Exported exported = getExportedAsset(this.importName);
+            if(exported != null && exported.asset != null){
+                return exported.asset.build(argument,grid);
+            }
+            else {
+                HytaleLogger.getLogger().atWarning().log("An exported Seed with the name does not exist: " + this.importName);
+                return null;
+            }
         }
+        return null;
     }
 }

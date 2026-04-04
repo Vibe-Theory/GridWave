@@ -17,6 +17,14 @@
     "Assignments": {
       "RootNodeType": "AssignmentsVariants",
       "MenuName" : "HytaleGenerator - Assignments"
+    },
+    "Props": {
+      "RootNodeType": "PropVariants",
+      "MenuName" : "HytaleGenerator - Props"
+    },
+    "TileSets": {
+      "RootNodeType": "TileSet.Variants",
+      "MenuName" : "HytaleGenerator - TileSets"
     }
   },
   "NodeCategories": {
@@ -331,9 +339,9 @@
     "TileSet.Variants":{
       "VariantFieldName": "Type",
       "Variants": {
-        "Constant": "Single.TileSet.WFC",
-        "Random": "Multi.TileSet.WFC",
-        "Time": "Fixed.TileSet.WFC",
+        "Single": "Single.TileSet.WFC",
+        "Multi": "Multi.TileSet.WFC",
+        "Fixed": "Fixed.TileSet.WFC",
         "Imported": "Imported.TileSet.WFC"
       }
     },
@@ -555,6 +563,7 @@
     "PropVariants": {
       "VariantFieldName": "Type",
       "Variants": {
+        "Algo": "Algo.WFC",
         "Box": "BoxProp",
         "Union": "Union.Prop",
         "Cluster": "Cluster.Prop",

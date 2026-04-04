@@ -11,7 +11,7 @@ buildNumber++
 buildNumberFile.writeText(buildNumber.toString())
 
 group = "com.png"
-version = "0.2.${buildNumber}"
+version = "0.3.${buildNumber}"
 val javaVersion = 25
 
 repositories {

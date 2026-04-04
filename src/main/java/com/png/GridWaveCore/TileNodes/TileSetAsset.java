@@ -27,14 +27,15 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.nio.file.Path;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
-public abstract class TileSetAsset implements Cleanable, JsonAssetWithMap<String, DefaultAssetMap<String, TileSetAsset>> {
+public abstract class TileSetAsset implements JsonAssetWithMap<String, DefaultAssetMap<String, TileSetAsset>>, Cleanable {
     @Nonnull
     public static final AssetCodecMapCodec<String, TileSetAsset> CODEC = new AssetCodecMapCodec<>(
             Codec.STRING, (t, k) -> t.id = k, t -> t.id, (t, data) -> t.data = data, t -> t.data
     );
     @Nonnull
-    private static final Map<String, TileSetAsset> exportedNodes = new HashMap<>();
+    private static final Map<String, TileSetAsset.Exported> exportedNodes = new ConcurrentHashMap<>();
     @Nonnull
     public static final Codec<String> CHILD_ASSET_CODEC = new ContainedAssetCodec<>(TileSetAsset.class, CODEC);
     @Nonnull
@@ -47,8 +48,14 @@ public abstract class TileSetAsset implements Cleanable, JsonAssetWithMap<String
             .add()
             .afterDecode(asset -> {
                 if (asset.exportName != null && !asset.exportName.isEmpty()) {
-                    exportedNodes.put(asset.exportName, asset);
-                    LoggerUtil.getLogger().fine("Registered imported position provider asset with name '" + asset.exportName + "' with asset id '" + asset.id);
+                    if (exportedNodes.containsKey(asset.exportName)) {
+                        LoggerUtil.getLogger().warning("Duplicate export name for asset: " + asset.exportName);
+                    }
+
+                    TileSetAsset.Exported exported = new TileSetAsset.Exported();
+                    exported.asset = asset;
+                    exportedNodes.put(asset.exportName, exported);
+                    LoggerUtil.getLogger().fine("Registered imported node asset with name '" + asset.exportName + "' with asset id '" + asset.id);
                 }
             })
             .build();
@@ -64,7 +71,7 @@ public abstract class TileSetAsset implements Cleanable, JsonAssetWithMap<String
     public void cleanUp() {
     }
 
-    public static TileSetAsset getExportedAsset(@Nonnull String name) {
+    public static TileSetAsset.Exported getExportedAsset(@Nonnull String name) {
         return exportedNodes.get(name);
     }
 
@@ -78,6 +85,10 @@ public abstract class TileSetAsset implements Cleanable, JsonAssetWithMap<String
     @Nonnull
     public static TileSetAsset.Argument argumentFrom(@Nonnull PropAsset.Argument argument) {
         return new TileSetAsset.Argument(argument.parentSeed, argument.materialCache, argument.referenceBundle, argument.workerId);
+    }
+
+    public static class Exported {
+        public TileSetAsset asset;
     }
 
     public static class Argument {
