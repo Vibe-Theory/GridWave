@@ -13,12 +13,12 @@ Check out the [`GridWaveExamples`](https://github.com/Voronoi-Studios/GridWaveEx
 * Modular design for easy extension
 
 ## Installation
-Default:
+### Default:
 1. Download the latest release
 2. Place the plugin in your global or world `Mods` folder
 
-Adding Node Editor support:
 > [!NOTE]
+### Adding Node Editor support:
 > Node modding is currently not offically suported by Hytale, thus we need to do some manual work.
 1. Copy contents of [`HytaleGenerator Java`](https://github.com/Voronoi-Studios/GridWave/tree/main/src/main/resources/Client/NodeEditor/Workspaces/HytaleGenerator%20Java) to your corresponding folder in `%Appdata%/Hytale/install\release\package\game\latest\Client\NodeEditor\Workspaces\HytaleGenerator Java`
 > [!CAUTION]
