@@ -2,6 +2,8 @@
 
 GridWave is a Hytale plugin that integrates Wave Function Collapse (WFC) into the World Generation V2 Node Editor. It enables structured, constraint-based procedural generation for dungeons, mazes, cities, towns, castles, structures, and many more.
 
+Check out the [`GridWaveExamples`](https://github.com/Voronoi-Studios/GridWaveExamples) to get an idea an idea how different things can be accieved.
+
 ## Features
 
 * WFC-based generation for deterministic but varied worlds
