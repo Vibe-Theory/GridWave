@@ -40,11 +40,25 @@ GridWave applies Wave Function Collapse by:
    1. Backtracks if it encounters impossible situations
    2. Starts a new attempt if to many backtracks where reached, _Configurable, to give possibility to increase success chance_
 4. Uses pattern matching to try and replace base tiles with FancyTiles to add variety
-5. Assembles a single UnionProp
+5. Assembles a PropDistribution or Prop
 
 ## Roadmap
 
-* Need to add later
+### pt 4
+* Random Point from ListPositionsAsset for FixedTile
+* Random Rotation for FixedTile
+* POI Path system with checks and distance
+### pt 5
+* Neightborhood system
+* bool or distance for self connection
+### pt 6
+* New Attempt Behavor
+### pt 7
+* Elevation
+
+### Wishlist
+* Infinite Grids
+* MultiTile support for baseTileSets
 
 ## Contributing
 
